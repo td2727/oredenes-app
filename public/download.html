@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar Proyecto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .info {
+            background: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .instructions ol {
+            color: #856404;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📦</div>
+        <h1>Administrador de Órdenes Médicas</h1>
+        <p class="subtitle">Descarga tu proyecto completo</p>
+        
+        <div class="info">
+            <div class="info-item">
+                <span class="info-label">📄 Archivo:</span>
+                <span class="info-value">medical-orders-app.tar.gz</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">💾 Tamaño:</span>
+                <span class="info-value">367 KB</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">📅 Versión:</span>
+                <span class="info-value">1.0.0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">🚀 Tecnología:</span>
+                <span class="info-value">Astro + React</span>
+            </div>
+        </div>
+        
+        <a href="/medical-orders-app.tar.gz" download="medical-orders-app.tar.gz" class="download-btn">
+            ⬇️ Descargar Proyecto
+        </a>
+        
+        <div class="instructions">
+            <h3>📋 Después de descargar:</h3>
+            <ol>
+                <li>Extrae el archivo .tar.gz en tu PC</li>
+                <li>Abre la terminal en esa carpeta</li>
+                <li>Ejecuta: <code>npm install</code></li>
+                <li>Lee el archivo <strong>SUBIR-A-GITHUB.md</strong></li>
+                <li>Sigue las instrucciones para subirlo a GitHub</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <p>✨ Creado con Webflow + Astro</p>
+            <p>👤 David Lora - loradavid000@gmail.com</p>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-descarga opcional después de 3 segundos (comentado por defecto)
+        // setTimeout(() => {
+        //     document.querySelector('.download-btn').click();
+        // }, 3000);
+        
+        // Confirmación de descarga
+        document.querySelector('.download-btn').addEventListener('click', function(e) {
+            console.log('✅ Descarga iniciada...');
+            setTimeout(() => {
+                alert('✅ ¡Descarga iniciada!\n\n📦 El archivo medical-orders-app.tar.gz se descargará en tu carpeta de Descargas.\n\n📖 No olvides leer SUBIR-A-GITHUB.md para las instrucciones.');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+This is a placeholder. You'll need to create actual icon files.
+For production, create PNG icons at 192x192 and 512x512 pixels.
+You can use tools like:
+- https://www.pwabuilder.com/imageGenerator
+- Canva
+- Figma

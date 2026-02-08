@@ -1,0 +1,83 @@
+/**
+GENERATED FILE
+
+webflow.css is generated automatically by webflow and is used to expose variables from your webflow design system in your app.
+
+Any changes to this file will be overwritten the next time your app is loaded in the workbench.
+
+In order to override any of these variables, you can redefine them in a CSS file that is imported globally after the webflow.css on your page.
+
+Font imports and @font-face declarations are in fonts.css, which should be imported before this file.
+
+You can learn more about CSS custom properties here:
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties#inheritance_of_custom_properties
+*/
+
+:root {
+  --_apps---typography--heading-font: 'Instrument Sans', sans-serif;
+  --_apps---typography--body-font: 'Instrument Sans', sans-serif;
+  --_apps---typography--button-font: 'Instrument Sans', sans-serif;
+  --_apps---sizes--radius: 0.5rem;
+  --_apps---colors--background: #FFFFFF;
+  --_apps---colors--foreground: #151617;
+  --_apps---colors--card: #FFFFFF;
+  --_apps---colors--card-foreground: #151617;
+  --_apps---colors--popover: #FFFFFF;
+  --_apps---colors--popover-foreground: #151617;
+  --_apps---colors--primary: #F54E07;
+  --_apps---colors--primary-foreground: #151617;
+  --_apps---colors--secondary: #FFFCFA;
+  --_apps---colors--secondary-foreground: rgba(21, 22, 23, 0.6);
+  --_apps---colors--muted: #FFFCFA;
+  --_apps---colors--muted-foreground: rgba(21, 22, 23, 0.6);
+  --_apps---colors--accent: #FFFCFA;
+  --_apps---colors--accent-foreground: rgba(21, 22, 23, 0.6);
+  --_apps---colors--destructive: #FF4D4F;
+  --_apps---colors--border: rgba(21, 22, 23, 0.1);
+  --_apps---colors--input: rgba(21, 22, 23, 0.2);
+  --_apps---colors--ring: #F54E07;
+  --_apps---charts--chart-1: #338CFF;
+  --_apps---charts--chart-2: #4A9EFF;
+  --_apps---charts--chart-3: #F54E07;
+  --_apps---charts--chart-4: #0050B3;
+  --_apps---charts--chart-5: #003D80;
+  --_apps---sidebar--sidebar: #FFFFFF;
+  --_apps---sidebar--sidebar-foreground: #151617;
+  --_apps---sidebar--sidebar-primary: #F54E07;
+  --_apps---sidebar--sidebar-primary-foreground: #151617;
+  --_apps---sidebar--sidebar-accent: #FFFCFA;
+  --_apps---sidebar--sidebar-accent-foreground: rgba(21, 22, 23, 0.6);
+  --_apps---sidebar--sidebar-border: rgba(21, 22, 23, 0.2);
+  --_apps---sidebar--sidebar-ring: #F54E07;
+  --_apps---colors--background-dark: #151617;
+  --_apps---colors--foreground-dark: #FFFFFF;
+  --_apps---colors--card-dark: #151617;
+  --_apps---colors--card-foreground-dark: #FFFFFF;
+  --_apps---colors--popover-dark: #151617;
+  --_apps---colors--popover-foreground-dark: #FFFFFF;
+  --_apps---colors--primary-dark: #F54E07;
+  --_apps---colors--primary-foreground-dark: #151617;
+  --_apps---colors--secondary-dark: #151617;
+  --_apps---colors--secondary-foreground-dark: rgba(255, 255, 255, 0.6);
+  --_apps---colors--muted-dark: rgba(21, 22, 23, 0.8);
+  --_apps---colors--muted-foreground-dark: rgba(255, 255, 255, 0.6);
+  --_apps---colors--accent-dark: rgba(21, 22, 23, 0.8);
+  --_apps---colors--accent-foreground-dark: rgba(255, 255, 255, 0.6);
+  --_apps---colors--destructive-dark: #FF4C4C;
+  --_apps---colors--border-dark: rgba(255, 255, 255, 0.2);
+  --_apps---colors--input-dark: rgba(255, 255, 255, 0.1);
+  --_apps---colors--ring-dark: #F54E07;
+  --_apps---charts--chart-1-dark: oklch(77.7% .152 181.912);
+  --_apps---charts--chart-2-dark: oklch(70.4% .14 182.503);
+  --_apps---charts--chart-3-dark: #F54E07;
+  --_apps---charts--chart-4-dark: oklch(51.1% .096 186.391);
+  --_apps---charts--chart-5-dark: oklch(43.7% .078 188.216);
+  --_apps---sidebar--sidebar-dark: #151617;
+  --_apps---sidebar--sidebar-foreground-dark: #FFFFFF;
+  --_apps---sidebar--sidebar-primary-dark: #F54E07;
+  --_apps---sidebar--sidebar-primary-foreground-dark: #151617;
+  --_apps---sidebar--sidebar-accent-dark: #151617;
+  --_apps---sidebar--sidebar-accent-foreground-dark: rgba(255, 255, 255, 0.6);
+  --_apps---sidebar--sidebar-border-dark: rgba(255, 255, 255, 0.1);
+  --_apps---sidebar--sidebar-ring-dark: #F54E07;
+}

@@ -1,0 +1,8 @@
+---
+import MainLayout from '../layouts/main.astro';
+import MedicalOrdersApp from '../components/MedicalOrdersApp';
+---
+
+<MainLayout>
+  <MedicalOrdersApp client:only="react" />
+</MainLayout>
