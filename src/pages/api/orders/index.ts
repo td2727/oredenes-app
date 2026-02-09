@@ -45,7 +45,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     return new Response(
       JSON.stringify({ orders }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
     );
   } catch (error) {
     console.error('❌ Get orders error:', error);
@@ -74,34 +77,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const body = await request.json();
+    const { userId, patientName, orderType, description, printRequired } = body;
 
-    // ✅ NUEVO: ya no usamos priority/notes
-    const {
-      userId,
-      patientName,
-      patientId,
-      phoneNumber,
-      email,
-      orderType,
-      description,
-      printRequired, // boolean esperado
-    } = body;
+    console.log('📝 Datos recibidos:', { userId, patientName, orderType, printRequired });
 
-    console.log('📝 Datos recibidos:', {
-      userId,
-      patientName,
-      patientId,
-      phoneNumber,
-      email,
-      orderType,
-      printRequired,
-    });
-
-    // ✅ Campos requeridos (ajusta si quieres)
-    if (!userId || !patientName || !patientId || !phoneNumber ) {
+    // ✅ priority ya NO es requerido desde el frontend
+    if (!userId || !patientName || !orderType) {
       console.error('❌ Campos faltantes');
       return new Response(
-        JSON.stringify({ error: 'Todos los campos requeridos deben completarse' }),
+        JSON.stringify({ error: 'Todos los campos son requeridos' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -116,46 +100,28 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Validar printRequired si viene
-    // (si no viene, lo tratamos como false)
-    const printRequiredBool = Boolean(printRequired);
-
     const orderRepo = new OrderRepository(db);
     const orderId = generateId('order-');
 
     console.log('💾 Creando orden con ID:', orderId);
 
-    // ⚠️ IMPORTANTE:
-    // Aquí debes alinear los nombres con tu tabla y con OrderRepository.create(...)
-    // Si tu tabla aún no tiene estas columnas, primero hay que agregarlas (ALTER TABLE) y actualizar el repo.
-
+    // ✅ DEFINITIVO: priority fijo "Media"
+    // ✅ Guardar print_required (0/1)
     const newOrder = await orderRepo.create({
       id: orderId,
       user_id: userId,
-
-      // AJUSTA AQUÍ si tus columnas tienen otro nombre:
       patient_name: patientName,
-
-      // Si tu DB NO tiene estos campos, comenta estas líneas por ahora:
-      patient_id: patientId,         // <-- AJUSTA AQUÍ
-      phone_number: phoneNumber,     // <-- AJUSTA AQUÍ
-      email: email || null,          // <-- AJUSTA AQUÍ
-
       order_type: orderType,
       status: 'Pendiente',
       description: description || null,
-
-      // NUEVO:
-      print_required: printRequiredBool ? 1 : 0, // <-- si tu DB lo maneja como INTEGER
-    });
+      priority: 'Media',
+      print_required: printRequired ? 1 : 0,
+    } as any);
 
     console.log('✅ Orden creada exitosamente');
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        order: newOrder,
-      }),
+      JSON.stringify({ success: true, order: newOrder }),
       { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
