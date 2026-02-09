@@ -159,15 +159,6 @@ export default function OrdersList({ userId, isAdmin }: OrdersListProps) {
       minute: '2-digit',
     });
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center p-8">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="p-4 rounded-md bg-red-50 border border-red-200">
@@ -203,18 +194,33 @@ export default function OrdersList({ userId, isAdmin }: OrdersListProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">
-          {isAdmin ? 'Todas las Órdenes' : 'Mis Órdenes'}
-        </h3>
-        <Button onClick={loadOrders} variant="outline" size="sm">
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Actualizar
-        </Button>
-      </div>
+  <div className="space-y-4">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="text-lg font-semibold">
+        {isAdmin ? 'Todas las Órdenes' : 'Mis Órdenes'}
+      </h3>
+      <Button onClick={loadOrders} variant="outline" size="sm" disabled={loading}>
+        <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+        {loading ? 'Cargando…' : 'Actualizar'}
+      </Button>
+    </div>
 
-      {/* Filtros por Estado */}
+    {/* ✅ Loading SIN bloquear el render */}
+    {loading && (
+      <div className="flex justify-center items-center p-8 bg-white rounded-lg border">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )}
+
+    {/* ✅ Error (si tienes state error) */}
+    {error && (
+      <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+        {error}
+      </div>
+    )}
+
+    {/* Filtros por Estado */}
+    {!loading && (
       <div className="flex flex-wrap gap-2 p-4 bg-gray-50 rounded-lg border">
         <button
           onClick={() => setFilterStatus('all')}
@@ -267,14 +273,19 @@ export default function OrdersList({ userId, isAdmin }: OrdersListProps) {
           ❌ Canceladas ({orderCounts.Cancelada})
         </button>
       </div>
+    )}
 
-      {/* Mensaje si no hay órdenes con el filtro actual */}
-      {filteredOrders.length === 0 && filterStatus !== 'all' && (
-        <div className="text-center p-6 bg-gray-50 rounded-lg border">
-          <p className="text-gray-600">No hay órdenes con estado: <strong>{filterStatus}</strong></p>
-        </div>
-      )}
+    {/* Mensaje si no hay órdenes con el filtro actual */}
+    {!loading && filteredOrders.length === 0 && filterStatus !== 'all' && (
+      <div className="text-center p-6 bg-gray-50 rounded-lg border">
+        <p className="text-gray-600">
+          No hay órdenes con estado: <strong>{filterStatus}</strong>
+        </p>
+      </div>
+    )}
 
+    {/* Lista */}
+    {!loading && (
       <div className="grid gap-4">
         {filteredOrders.map((order) => (
           <Card key={order.id}>
@@ -302,6 +313,7 @@ export default function OrdersList({ userId, isAdmin }: OrdersListProps) {
                 </div>
               </div>
             </CardHeader>
+
             <CardContent className="space-y-3">
               {order.description && (
                 <p className="text-sm text-gray-600">{order.description}</p>
@@ -336,7 +348,8 @@ export default function OrdersList({ userId, isAdmin }: OrdersListProps) {
           </Card>
         ))}
       </div>
-    </div>
+    )}
+  </div>
   );
 }
 
