@@ -18,7 +18,7 @@ export interface Order {
   order_type: 'Tomografía' | 'Radiografía' | 'Ortodoncia' | 'Cefalometría';
   status: 'Pendiente' | 'En Proceso' | 'Completada';
   description: string | null;
-  priority: 'Alta' | 'Media' | 'Baja';
+  print_required: number; // 0 o 1
   created_at: string;
   updated_at: string;
 }
@@ -135,7 +135,7 @@ export class OrderRepository {
         order.order_type,
         order.status,
         order.description || null,
-        order.priority
+        order.print_required
       )
       .run();
 
