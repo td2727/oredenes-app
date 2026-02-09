@@ -16,8 +16,8 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
   const [email, setEmail] = useState('');
   const [orderType, setOrderType] = useState<string>('');
   const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState<string>('Media');
-  const [notes, setNotes] = useState('');
+  const [printRequired, setPrintRequired] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -40,8 +40,7 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
           email: email || undefined,
           orderType,
           description,
-          priority,
-          notes: notes || undefined,
+          printRequired,
         }),
       });
 
@@ -61,9 +60,8 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
         setEmail('');
         setOrderType('');
         setDescription('');
-        setPriority('Media');
-        setNotes('');
-        
+        setPrintRequired(false);
+
         onOrderCreated();
       } else {
         setError('Error al crear la orden');
@@ -79,12 +77,12 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
   return (
     <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-6">Nueva Orden Médica</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Información del Paciente */}
         <div className="border-b pb-4 mb-4">
           <h3 className="text-lg font-semibold mb-3 text-gray-700">Información del Paciente</h3>
-          
+
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -150,7 +148,7 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
         {/* Detalles de la Orden */}
         <div className="border-b pb-4 mb-4">
           <h3 className="text-lg font-semibold mb-3 text-gray-700">Detalles de la Orden</h3>
-          
+
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -173,23 +171,6 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
 
             <div>
               <label className="block text-sm font-medium mb-2">
-                Prioridad *
-              </label>
-              <select
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-                required
-                disabled={loading}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="Baja">🟢 Baja - Rutinaria</option>
-                <option value="Media">🟡 Media - Normal</option>
-                <option value="Alta">🔴 Alta - Urgente</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">
                 Descripción del Procedimiento *
               </label>
               <textarea
@@ -205,16 +186,17 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
 
             <div>
               <label className="block text-sm font-medium mb-2">
-                Notas Adicionales (Opcional)
+                ¿Requiere impreso?
               </label>
-              <textarea
-                placeholder="Cualquier información adicional relevante..."
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                rows={2}
+              <select
+                value={printRequired ? "si" : "no"}
+                onChange={(e) => setPrintRequired(e.target.value === "si")}
                 disabled={loading}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+              >
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+              </select>
             </div>
           </div>
         </div>
@@ -226,15 +208,15 @@ export default function CreateOrderForm({ userId, onOrderCreated, onCancel }: Cr
         )}
 
         <div className="flex gap-3 pt-2">
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={loading}
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2"
           >
             {loading ? 'Creando Orden...' : '✓ Crear Orden'}
           </Button>
-          <Button 
-            type="button" 
+          <Button
+            type="button"
             onClick={onCancel}
             disabled={loading}
             className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6"

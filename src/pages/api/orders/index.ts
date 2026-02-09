@@ -6,9 +6,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
   try {
     console.log('📋 GET /api/orders - Inicio');
     const db = locals?.runtime?.env?.DB;
-    
+
     console.log('🗄️  DB presente:', !!db);
-    
+
     if (!db) {
       console.error('❌ DB no configurada');
       return new Response(
@@ -28,11 +28,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
     let orders;
 
     if (isAdmin) {
-      // Admin puede ver todas las órdenes
       console.log('📊 Obteniendo todas las órdenes (admin)');
       orders = await orderRepo.findAll();
     } else if (userId) {
-      // Usuario normal solo ve sus órdenes
       console.log('📊 Obteniendo órdenes del usuario:', userId);
       orders = await orderRepo.findByUserId(userId);
     } else {
@@ -47,15 +45,15 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     return new Response(
       JSON.stringify({ orders }),
-      { 
-        status: 200, 
-        headers: { 'Content-Type': 'application/json' } 
-      }
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('❌ Get orders error:', error);
     return new Response(
-      JSON.stringify({ error: 'Error al obtener órdenes', details: error instanceof Error ? error.message : String(error) }),
+      JSON.stringify({
+        error: 'Error al obtener órdenes',
+        details: error instanceof Error ? error.message : String(error),
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
@@ -66,7 +64,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     console.log('➕ POST /api/orders - Inicio');
     const db = locals?.runtime?.env?.DB;
-    
+
     if (!db) {
       console.error('❌ DB no configurada');
       return new Response(
@@ -76,14 +74,34 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const body = await request.json();
-    const { userId, patientName, orderType, description, priority } = body;
 
-    console.log('📝 Datos recibidos:', { userId, patientName, orderType, priority });
+    // ✅ NUEVO: ya no usamos priority/notes
+    const {
+      userId,
+      patientName,
+      patientId,
+      phoneNumber,
+      email,
+      orderType,
+      description,
+      printRequired, // boolean esperado
+    } = body;
 
-    if (!userId || !patientName || !orderType || !priority) {
+    console.log('📝 Datos recibidos:', {
+      userId,
+      patientName,
+      patientId,
+      phoneNumber,
+      email,
+      orderType,
+      printRequired,
+    });
+
+    // ✅ Campos requeridos (ajusta si quieres)
+    if (!userId || !patientName || !patientId || !phoneNumber ) {
       console.error('❌ Campos faltantes');
       return new Response(
-        JSON.stringify({ error: 'Todos los campos son requeridos' }),
+        JSON.stringify({ error: 'Todos los campos requeridos deben completarse' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -98,29 +116,37 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Validar prioridad
-    const validPriorities = ['Alta', 'Media', 'Baja'];
-    if (!validPriorities.includes(priority)) {
-      console.error('❌ Prioridad inválida:', priority);
-      return new Response(
-        JSON.stringify({ error: 'Prioridad inválida' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
+    // Validar printRequired si viene
+    // (si no viene, lo tratamos como false)
+    const printRequiredBool = Boolean(printRequired);
 
     const orderRepo = new OrderRepository(db);
     const orderId = generateId('order-');
 
     console.log('💾 Creando orden con ID:', orderId);
 
+    // ⚠️ IMPORTANTE:
+    // Aquí debes alinear los nombres con tu tabla y con OrderRepository.create(...)
+    // Si tu tabla aún no tiene estas columnas, primero hay que agregarlas (ALTER TABLE) y actualizar el repo.
+
     const newOrder = await orderRepo.create({
       id: orderId,
       user_id: userId,
+
+      // AJUSTA AQUÍ si tus columnas tienen otro nombre:
       patient_name: patientName,
+
+      // Si tu DB NO tiene estos campos, comenta estas líneas por ahora:
+      patient_id: patientId,         // <-- AJUSTA AQUÍ
+      phone_number: phoneNumber,     // <-- AJUSTA AQUÍ
+      email: email || null,          // <-- AJUSTA AQUÍ
+
       order_type: orderType,
       status: 'Pendiente',
       description: description || null,
-      priority
+
+      // NUEVO:
+      print_required: printRequiredBool ? 1 : 0, // <-- si tu DB lo maneja como INTEGER
     });
 
     console.log('✅ Orden creada exitosamente');
@@ -128,19 +154,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(
       JSON.stringify({
         success: true,
-        order: newOrder
+        order: newOrder,
       }),
-      { 
-        status: 201, 
-        headers: { 'Content-Type': 'application/json' } 
-      }
+      { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('❌ Create order error:', error);
     return new Response(
-      JSON.stringify({ error: 'Error al crear orden', details: error instanceof Error ? error.message : String(error) }),
+      JSON.stringify({
+        error: 'Error al crear orden',
+        details: error instanceof Error ? error.message : String(error),
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };
-
