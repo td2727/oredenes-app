@@ -104,7 +104,7 @@ export default function LoginForm({ onLogin, onSwitchToRegister }: LoginFormProp
               ¿No tienes una cuenta?{' '}
               <button
                 onClick={onSwitchToRegister}
-                className="text-blue-600 hover:text-blue-700 font-medium"
+                className="text-orange-500 hover:text-orange-600 font-semibold"
                 disabled={loading}
               >
                 Regístrate aquí
