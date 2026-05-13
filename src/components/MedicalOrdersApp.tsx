@@ -55,7 +55,7 @@ export default function MedicalOrdersApp() {
 
   const handleOrderCreated = () => {
     setShowCreateOrder(false);
-    setRefreshKey(prev => prev + 1); // Forzar recarga de órdenes
+    setRefreshKey(prev => prev + 1);
   };
 
   // Si no hay usuario, mostrar login o registro
@@ -68,6 +68,7 @@ export default function MedicalOrdersApp() {
         />
       );
     }
+
     return (
       <LoginForm
         onLogin={handleLogin}
@@ -79,14 +80,22 @@ export default function MedicalOrdersApp() {
   // Vista de administración de admins
   if (showAdminManagement && currentUser.role === 'admin') {
     return (
-      <div className="min-h-screen bg-gray-50 p-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold">Administración de Admins</h1>
-            <Button onClick={() => setShowAdminManagement(false)} variant="outline">
+      <div className="min-h-screen bg-gray-50 px-3 py-4 sm:p-4 overflow-x-hidden">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold leading-tight break-words">
+              Administración de Admins
+            </h1>
+
+            <Button
+              onClick={() => setShowAdminManagement(false)}
+              variant="outline"
+              className="w-full sm:w-auto"
+            >
               Volver
             </Button>
           </div>
+
           <AdminManagement currentUser={currentUser} />
         </div>
       </div>
@@ -95,40 +104,42 @@ export default function MedicalOrdersApp() {
 
   // Vista principal de la aplicación
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-3 py-4 sm:p-4 overflow-x-hidden">
+      <div className="w-full max-w-6xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-  <div className="min-w-0">
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight">
-      Administrador de Órdenes Médicas
-    </h1>
-    <p className="text-gray-600 mt-2 text-sm sm:text-base">
-      Bienvenido, {currentUser.name}{' '}
-      {currentUser.role === 'admin' && (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-          Admin
-        </span>
-      )}
-    </p>
-  </div>
+        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="w-full min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight break-words">
+                Administrador de Órdenes Médicas
+              </h1>
 
-  <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <p className="text-gray-600 mt-2 text-sm sm:text-base break-words">
+                Bienvenido, {currentUser.name}{' '}
+                {currentUser.role === 'admin' && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    Admin
+                  </span>
+                )}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto shrink-0">
               {currentUser.role === 'admin' && (
                 <Button
                   onClick={() => setShowAdminManagement(true)}
                   variant="outline"
-                  className="flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2"
                 >
                   <Users className="h-4 w-4" />
                   Administrar
                 </Button>
               )}
+
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 <LogOut className="h-4 w-4" />
                 Cerrar Sesión
@@ -163,7 +174,7 @@ export default function MedicalOrdersApp() {
         )}
 
         {/* Lista de órdenes */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
           <OrdersList
             key={refreshKey}
             userId={currentUser.id}
@@ -172,9 +183,10 @@ export default function MedicalOrdersApp() {
         </div>
 
         {/* Footer info */}
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-gray-600 px-2">
           <p>
-            💡 {currentUser.role === 'admin' 
+            💡{' '}
+            {currentUser.role === 'admin'
               ? 'Como administrador puedes ver y gestionar todas las órdenes'
               : 'Solo puedes ver tus propias órdenes'}
           </p>
