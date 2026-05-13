@@ -80,17 +80,24 @@ export default function MedicalOrdersApp() {
   // Vista de administración de admins
   if (showAdminManagement && currentUser.role === 'admin') {
     return (
-      <div className="min-h-screen bg-gray-50 px-3 py-4 sm:p-4 overflow-x-hidden">
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold leading-tight break-words">
+      <div className="min-h-screen bg-gray-50 px-3 py-4 overflow-x-hidden">
+        <div className="w-full max-w-md lg:max-w-6xl mx-auto">
+          <div className="flex flex-col gap-4 mb-6 lg:flex-row lg:items-center lg:justify-between">
+            <div
+              className="font-bold text-gray-800"
+              style={{
+                fontSize: '30px',
+                lineHeight: '1.05',
+                wordBreak: 'break-word',
+              }}
+            >
               Administración de Admins
-            </h1>
+            </div>
 
             <Button
               onClick={() => setShowAdminManagement(false)}
               variant="outline"
-              className="w-full sm:w-auto"
+              className="w-full lg:w-auto"
             >
               Volver
             </Button>
@@ -104,20 +111,27 @@ export default function MedicalOrdersApp() {
 
   // Vista principal de la aplicación
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-3 py-4 sm:p-4 overflow-x-hidden">
-      <div className="w-full max-w-6xl mx-auto">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 px-3 py-4 overflow-x-hidden">
+      <div className="w-full max-w-md lg:max-w-6xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="bg-white rounded-lg shadow-md p-4 mb-6 w-full">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="w-full min-w-0">
-              <h1 className="!text-[32px] sm:!text-[38px] lg:!text-[44px] font-bold text-gray-800 leading-[1.05] break-words max-w-full">
+              <div
+                className="font-bold text-gray-800"
+                style={{
+                  fontSize: '34px',
+                  lineHeight: '1.05',
+                  wordBreak: 'break-word',
+                }}
+              >
                 Administrador de Órdenes Médicas
-              </h1>
+              </div>
 
-              <p className="text-gray-600 mt-2 text-sm sm:text-base break-words">
+              <p className="text-gray-600 mt-3 text-xs break-words">
                 Bienvenido, {currentUser.name}{' '}
                 {currentUser.role === 'admin' && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-800">
                     Admin
                   </span>
                 )}
@@ -129,7 +143,7 @@ export default function MedicalOrdersApp() {
                 <Button
                   onClick={() => setShowAdminManagement(true)}
                   variant="outline"
-                  className="w-full lg:w-auto flex items-center justify-center gap-2 text-xs sm:text-sm"
+                  className="w-full lg:w-auto flex items-center justify-center gap-2 text-xs"
                 >
                   <Users className="h-4 w-4" />
                   Administrar
@@ -139,7 +153,7 @@ export default function MedicalOrdersApp() {
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="w-full sm:w-auto flex items-center justify-center gap-2"
+                className="w-full lg:w-auto flex items-center justify-center gap-2 text-xs"
               >
                 <LogOut className="h-4 w-4" />
                 Cerrar Sesión
@@ -153,7 +167,7 @@ export default function MedicalOrdersApp() {
           <div className="mb-6">
             <Button
               onClick={() => setShowCreateOrder(true)}
-              className="w-full sm:w-auto flex items-center justify-center gap-2"
+              className="w-full lg:w-auto flex items-center justify-center gap-2"
               size="lg"
             >
               <PlusCircle className="h-5 w-5" />
@@ -174,7 +188,7 @@ export default function MedicalOrdersApp() {
         )}
 
         {/* Lista de órdenes */}
-        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+        <div className="bg-white rounded-lg shadow-md p-4 w-full">
           <OrdersList
             key={refreshKey}
             userId={currentUser.id}
@@ -183,7 +197,7 @@ export default function MedicalOrdersApp() {
         </div>
 
         {/* Footer info */}
-        <div className="mt-6 text-center text-sm text-gray-600 px-2">
+        <div className="mt-6 text-center text-xs text-gray-600 px-2">
           <p>
             💡{' '}
             {currentUser.role === 'admin'
