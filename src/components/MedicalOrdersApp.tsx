@@ -119,7 +119,7 @@ export default function MedicalOrdersApp() {
                 <Button
                   onClick={() => setShowAdminManagement(true)}
                   variant="outline"
-                  className="flex items-center gap-2"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <Users className="h-4 w-4" />
                   Administrar
@@ -128,7 +128,7 @@ export default function MedicalOrdersApp() {
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="flex items-center gap-2"
+                className="flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <LogOut className="h-4 w-4" />
                 Cerrar Sesión
@@ -142,7 +142,7 @@ export default function MedicalOrdersApp() {
           <div className="mb-6">
             <Button
               onClick={() => setShowCreateOrder(true)}
-              className="w-full sm:w-auto flex items-center gap-2"
+              className="w-full sm:w-auto flex items-center justify-center gap-2"
               size="lg"
             >
               <PlusCircle className="h-5 w-5" />
