@@ -108,9 +108,9 @@ export default function MedicalOrdersApp() {
       <div className="w-full max-w-6xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="w-full min-w-0">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight break-words">
+              <h1 className="!text-[32px] sm:!text-[38px] lg:!text-[44px] font-bold text-gray-800 leading-[1.05] break-words max-w-full">
                 Administrador de Órdenes Médicas
               </h1>
 
@@ -124,12 +124,12 @@ export default function MedicalOrdersApp() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto shrink-0">
+            <div className="flex flex-col gap-2 w-full lg:w-auto lg:flex-row lg:shrink-0">
               {currentUser.role === 'admin' && (
                 <Button
                   onClick={() => setShowAdminManagement(true)}
                   variant="outline"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2"
+                  className="w-full lg:w-auto flex items-center justify-center gap-2 text-xs sm:text-sm"
                 >
                   <Users className="h-4 w-4" />
                   Administrar
