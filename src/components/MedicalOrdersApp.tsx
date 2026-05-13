@@ -99,21 +99,22 @@ export default function MedicalOrdersApp() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800">
-                Administrador de Órdenes Médicas
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Bienvenido, {currentUser.name}{' '}
-                {currentUser.role === 'admin' && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                    Admin
-                  </span>
-                )}
-              </p>
-            </div>
-            <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  <div className="min-w-0">
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight">
+      Administrador de Órdenes Médicas
+    </h1>
+    <p className="text-gray-600 mt-2 text-sm sm:text-base">
+      Bienvenido, {currentUser.name}{' '}
+      {currentUser.role === 'admin' && (
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+          Admin
+        </span>
+      )}
+    </p>
+  </div>
+
+  <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
               {currentUser.role === 'admin' && (
                 <Button
                   onClick={() => setShowAdminManagement(true)}
