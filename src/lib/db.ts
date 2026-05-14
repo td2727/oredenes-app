@@ -129,14 +129,14 @@ export class OrderRepository {
         'INSERT INTO orders (id, user_id, patient_name, order_type, status, description, priority) VALUES (?, ?, ?, ?, ?, ?, ?)'
       )
       .bind(
-        order.id,
-        order.user_id,
-        order.patient_name,
-        order.order_type,
-        order.status,
-        order.description || null,
-        order.print_required
-      )
+          order.id,
+          order.user_id,
+          order.patient_name,
+          order.order_type,
+          order.status,
+          order.description || null,
+          (order as any).priority || 'Media'
+          )
       .run();
 
     return (await this.findById(order.id))!;
